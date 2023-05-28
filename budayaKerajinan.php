@@ -1,6 +1,21 @@
 <?php
 include('includes/navbarBudaya.php');
 include('admin/database/dbconfig.php');
+
+// Mengambil data kerajinan dari database
+$query = "SELECT * FROM kerajinan";
+$query_run = mysqli_query($connection, $query);
+
+// Menginisialisasi array kosong untuk menyimpan data kerajinan
+$kerajinan = array();
+
+if (mysqli_num_rows($query_run) > 0) {
+    while ($row = mysqli_fetch_assoc($query_run)) {
+        // Menambahkan data kerajinan ke array
+        $kerajinan[] = $row;
+    }
+}
+
 ?>
 
 <main>
@@ -34,58 +49,31 @@ include('admin/database/dbconfig.php');
 
     </header>
 
+    <div class="container width-60 mt-5 mb-5">
+        <h5>Daftar Budaya Kerajinan</h5>
+        <div class="list-group width-30 mt-4" id="kerajinan-list">
+            <!-- Data kerajinan akan ditampilkan di sini menggunakan JavaScript -->
+        </div>
+    </div>
+
     <?php
-    $query = "SELECT * FROM kerajinan";
-    $query_run = mysqli_query($connection, $query);
-
-    if (mysqli_num_rows($query_run) > 0) {
-
-    ?>
-
-        <div class="container width-60 mt-5 mb-5">
-            <h5>Daftar Budaya Kerajinan</h5>
-            <div class="list-group width-30 mt-4">
-                <?php
-                while ($row = mysqli_fetch_assoc($query_run)) {
-                ?>
-                    <a href="#<?php echo $row['id']; ?>" class="list-group-item list-group-item-action">
-                        <?php echo $row['title'] ?>
-                    </a>
-                <?php
-                }
-                ?>
-            </div>
-
-            <?php
-            mysqli_data_seek($query_run, 0); // Mengembalikan kursor query ke awal
-
-            while ($row = mysqli_fetch_assoc($query_run)) {
-            ?>
-                <div id="<?php echo $row['id']; ?>" class="container mt-3">
-                <hr>
-                    <div class="row mt-3">
-                        <div class="col-sm-6 mt-2">
-                            <!-- <img src="img/kerajinan-1.jpeg" class="img-thumbnail" alt=""> -->
-                            <?php echo '<img src="admin/upload/' . $row['images'] . '" width="75%" height="75%" class="img-thumbnail float-end d-none d-sm-block" alt="kerajinan">' ?>
-                            <?php echo '<img src="admin/upload/' . $row['images'] . '" width="75%" height="75%" class="img-thumbnail mx-auto d-block d-sm-none" alt="kerajinan">' ?>
-                        </div>
-                        <div class="col-sm-6 mt-2">
-                            <h6 style="color: #562C1B">Budaya kerajinan</h6>
-                            <h2><?php echo $row['title'] ?></h2>
-                            <p><?php echo $row['description'] ?></p>
-                        </div>
-                    </div>
+    foreach ($kerajinan as $row) {
+        ?>
+        <div id="<?php echo $row['id']; ?>" class="container mt-3">
+            <hr>
+            <div class="row mt-3">
+                <div class="col-sm-6 mt-2">
+                    <?php echo '<img src="admin/upload/' . $row['images'] . '" width="75%" height="75%" class="img-thumbnail float-end d-none d-sm-block" alt="kerajinan">' ?>
+                    <?php echo '<img src="admin/upload/' . $row['images'] . '" width="75%" height="75%" class="img-thumbnail mx-auto d-block d-sm-none" alt="kerajinan">' ?>
                 </div>
-            <?php
-            }
-            ?>
+                <div class="col-sm-6 mt-2">
+                    <h6 style="color: #562C1B">Budaya Kerajinan</h6>
+                    <h2><?php echo $row['title'] ?></h2>
+                    <p><?php echo $row['description'] ?></p>
+                </div>
+            </div>
         </div>
-
-        </div>
-
     <?php
-    } else {
-        echo "No Record Found";
     }
     ?>
 
