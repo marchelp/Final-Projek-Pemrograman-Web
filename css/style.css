@@ -1,0 +1,103 @@
+/* navbar */
+nav {
+    z-index: 999;
+}
+
+.dropend .dropdown-toggle {
+    margin-left: 1em;
+}
+
+.dropdown-item:hover {
+    background-color: #F8EBBF;
+}
+
+.dropdown:hover>.dropdown-menu, .dropend:hover>.dropdown-menu {
+    display: block;
+    margin-top: .125em;
+    margin-left: .125em;
+}
+
+@media screen and (min-width:769px) {
+    .dropend:hover>.dropdown-menu {
+        position: absolute;
+        top: 0;
+        left: 100%;
+    }
+
+    .dropend .dropdown-toggle {
+        margin-left: .5em;
+    }
+}
+
+.login {
+    background-color: #562C1B
+}
+
+/* header */
+header {
+    position: relative;
+    background-color: black;
+    width: 100%;
+    overflow: hidden;
+    padding: 0;
+}
+
+header video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 0;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+
+header .container {
+    position: relative;
+    z-index: 2;
+}
+
+header .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: 0.5;
+    z-index: 1;
+}
+
+/* Footer */
+footer {
+    background-color: #562C1B;
+    color: white;
+}
+
+.foot {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.logo {
+    color: #F8EBBF;
+    scale: 2;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+
+}
+
+/* Gaya khusus untuk gambar yang diperbesar di layar desktop */
+@media (min-width: 992px) {
+    .modal-body .img-fluid {
+        max-height: 80vh;
+    }
+}
