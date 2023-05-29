@@ -1,4 +1,5 @@
 <?php
+// include_once("admin\database\dbconfig.php");
 include('security.php');
 include('includes/header.php');
 include('includes/navbar.php');
@@ -21,9 +22,9 @@ include('includes/navbar.php');
                             require 'database/dbconfig.php';
 
                             $query = "SELECT id FROM register ORDER BY id";
-                            $query_run = mysqli_query($connection, $query);
+                            $query_run = $connection->query($query);
 
-                            $row = mysqli_num_rows($query_run);
+                            $row = $query_run->rowCount();
 
                             echo '<h1 class="ms-4"> ' . $row . ' </h1>';
                             ?>
@@ -43,13 +44,13 @@ include('includes/navbar.php');
                             require 'database/dbconfig.php';
 
                             $query_kesenian = "SELECT id FROM kesenian ORDER BY id";
-                            $query_kesenian_run = mysqli_query($connection, $query_kesenian);
+                            $query_kesenian_run = $connection->query($query_kesenian);
 
                             $query_kerajinan = "SELECT id FROM kerajinan ORDER BY id";
-                            $query_kerajinan_run = mysqli_query($connection, $query_kerajinan);
+                            $query_kerajinan_run = $connection->query($query_kesenian);
 
-                            $row_kesenian = mysqli_num_rows($query_kesenian_run);
-                            $row_kerajinan = mysqli_num_rows($query_kerajinan_run);
+                            $row_kesenian = $query_kesenian_run->rowCount();
+                            $row_kerajinan = $query_kerajinan_run->rowCount();
 
                             $total_row = $row_kesenian + $row_kerajinan;
 
@@ -72,9 +73,9 @@ include('includes/navbar.php');
                                 require 'database/dbconfig.php';
 
                                 $query = "SELECT id FROM kesenian ORDER BY id";
-                                $query_run = mysqli_query($connection, $query);
+                                $query_run = $connection->query($query);
 
-                                $row = mysqli_num_rows($query_run);
+                                $row = $query_run->rowCount();
 
                                 echo '<h1 class="ms-4"> ' . $row . ' </h1>';
                                 ?>
@@ -97,9 +98,9 @@ include('includes/navbar.php');
                                 require 'database/dbconfig.php';
 
                                 $query = "SELECT id FROM kerajinan ORDER BY id";
-                                $query_run = mysqli_query($connection, $query);
+                                $query_run = $connection->query($query);
 
-                                $row = mysqli_num_rows($query_run);
+                                $row = $query_run->rowCount();
 
                                 echo '<h1 class="ms-4"> ' . $row . ' </h1>';
                                 ?>
@@ -126,9 +127,9 @@ include('includes/navbar.php');
         $query = "SELECT id, 'kesenian' AS kategori, title, description, images FROM kesenian 
                   UNION 
                   SELECT id, 'kerajinan' AS kategori, title, description, images FROM kerajinan";
-        $query_run = mysqli_query($connection, $query);
+        $query_run = $connection->query($query);
 
-        if(mysqli_num_rows($query_run) > 0) {
+        if($query_run->rowCount() > 0) {
     ?>
 
         <table id="datatablesSimple">
@@ -143,7 +144,7 @@ include('includes/navbar.php');
             </thead>
             <tbody>
             <?php 
-                while($row = mysqli_fetch_assoc($query_run)) {
+                while($row = $query_run->fetch(PDO::FETCH_ASSOC))  {
             ?>
                 <tr>
                     <td><?php echo $row['id'] ?></td>

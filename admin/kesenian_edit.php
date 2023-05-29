@@ -20,10 +20,10 @@ include('includes/navbar.php');
             if (isset($_POST['edit_data_btn'])) {
                 $id = $_POST['edit_id'];
 
-                $query = "SELECT * FROM kesenian WHERE id='$id'";
-                $query_run = mysqli_query($connection, $query);
+                $query_select = "SELECT * FROM kesenian WHERE id='$id'";
+                $query_select_run = $connection->query($query_select);
 
-                foreach ($query_run  as $row) {
+                foreach ($query_select_run  as $row) {
             ?>
 
                     <form action="keseniancode.php" method="POST" enctype="multipart/form-data">

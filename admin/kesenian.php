@@ -49,7 +49,7 @@ include('includes/navbar.php');
                 <h6 class="m-0 ps-4 font-weight-bold text-primary">Budaya Kesenian
                     <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal"
                         data-bs-target="#kesenianModal">
-                        Add Budaya Kesenian
+                        Tambahkan Budaya Kesenian
                     </button>
                 </h6>
 
@@ -79,10 +79,10 @@ include('includes/navbar.php');
 
                 <div class="table-responsive">
                     <?php 
-                        $query = "SELECT * FROM kesenian";
-                        $query_run = mysqli_query($connection, $query);
+                        $query_select = "SELECT * FROM kesenian";
+                        $query_select_run = $connection->query($query_select);
 
-                        if(mysqli_num_rows($query_run) > 0) {
+                        if($query_select_run -> rowCount() > 0) {
                             
                             ?>
 
@@ -99,7 +99,7 @@ include('includes/navbar.php');
                         </thead>
                         <tbody>
                             <?php 
-                                while($row = mysqli_fetch_assoc($query_run)) {
+                                while($row = $query_select_run->fetch(PDO::FETCH_ASSOC)) {
                             ?>
                             <tr>
                                 <td><?php echo $row['id'] ?></td>

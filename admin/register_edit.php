@@ -1,5 +1,5 @@
 <?php
-session_start();
+include('security.php');
 
 include('includes/header.php');
 include('includes/navbar.php');
@@ -15,15 +15,14 @@ include('includes/navbar.php');
             <div class="card-body">
 
                 <?php
-                $connection = mysqli_connect("localhost", "root", "", "adminpanel");
 
                 if (isset($_POST['edit_btn'])) {
                     $id = $_POST['edit_id'];
 
-                    $query = "SELECT * FROM register WHERE id='$id'";
-                    $query_run = mysqli_query($connection, $query);
+                    $query_edit = "SELECT * FROM register WHERE id='$id'";
+                    $query_edit_run = $connection->query($query_edit);
 
-                    foreach ($query_run as $row) {
+                    foreach ($query_edit_run as $row) {
                 ?>
 
                         <form action="logincode.php" method="POST">

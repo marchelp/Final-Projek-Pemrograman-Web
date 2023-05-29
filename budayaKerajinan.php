@@ -3,14 +3,14 @@ include('includes/navbarBudaya.php');
 include('admin/database/dbconfig.php');
 
 // Mengambil data kerajinan dari database
-$query = "SELECT * FROM kerajinan";
-$query_run = mysqli_query($connection, $query);
+$query_select = "SELECT * FROM kerajinan";
+$query_select_run = $connection->query($query_select);
 
 // Menginisialisasi array kosong untuk menyimpan data kerajinan
 $kerajinan = array();
 
-if (mysqli_num_rows($query_run) > 0) {
-    while ($row = mysqli_fetch_assoc($query_run)) {
+if ($query_select_run->columnCount() > 0) {
+    while ($row = $query_select_run->fetch(PDO::FETCH_ASSOC)) {
         // Menambahkan data kerajinan ke array
         $kerajinan[] = $row;
     }
@@ -61,7 +61,7 @@ if (mysqli_num_rows($query_run) > 0) {
         ?>
         <div id="<?php echo $row['id']; ?>" class="container mt-3">
             <hr>
-            <div class="row mt-3">
+            <div class="row my-3 mx-2">
                 <div class="col-sm-6 mt-2">
                     <?php echo '<img src="admin/upload/' . $row['images'] . '" width="75%" height="75%" class="img-thumbnail float-end d-none d-sm-block" alt="kerajinan">' ?>
                     <?php echo '<img src="admin/upload/' . $row['images'] . '" width="75%" height="75%" class="img-thumbnail mx-auto d-block d-sm-none" alt="kerajinan">' ?>

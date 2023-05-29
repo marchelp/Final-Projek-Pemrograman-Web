@@ -1,7 +1,6 @@
 <?php
-include('security.php');
+include_once('security.php');
 
-$connection = mysqli_connect("localhost", "root", "", "adminpanel");
 
 if(isset($_POST['registerbtn']))
 {
@@ -11,8 +10,8 @@ if(isset($_POST['registerbtn']))
     $cpassword = $_POST['confirmpassword'];
 
     $email_query = "SELECT * FROM register WHERE email='$email' ";
-    $email_query_run = mysqli_query($connection, $email_query);
-    if(mysqli_num_rows($email_query_run) > 0)
+    $email_query_run = $connection->query($email_query);
+    if(!$email_query_run->columnCount() > 0)
     {
         $_SESSION['status'] = "Email Already Taken. Please Try Another one.";
         $_SESSION['status_code'] = "error";
@@ -23,7 +22,7 @@ if(isset($_POST['registerbtn']))
         if($password === $cpassword)
         {
             $query = "INSERT INTO register (username,email,password) VALUES ('$username','$email','$password')";
-            $query_run = mysqli_query($connection, $query);
+            $query_run = $connection->query($query);
             
             if($query_run)
             {
@@ -59,10 +58,10 @@ if(isset($_POST['registerbtn']))
         $email = $_POST['edit_email'];
         $password = $_POST['edit_password'];    
         
-        $query = "UPDATE register SET username='$username', email='$email', password='$password' WHERE id='$id'  ";
-        $query_run = mysqli_query($connection, $query);
+        $query_update = "UPDATE register SET username='$username', email='$email', password='$password' WHERE id='$id'  ";
+        $query_update_run = $connection->query($query_update);
 
-        if($query_run) {
+        if($query_update_run) {
             $_SESSION['status'] = "Your Data is UPDATED";
             header('Location: register.php');
         } else {
@@ -75,10 +74,10 @@ if(isset($_POST['registerbtn']))
     if(isset($_POST['delete_btn'])) {
         $id = $_POST['delete_id'];
 
-        $query = "DELETE FROM register WHERE id='$id' ";
-        $query_run = mysqli_query($connection, $query);
+        $query_delete = "DELETE FROM register WHERE id='$id' ";
+        $query_delete_run = $connection->query($query_delete);
 
-        if($query_run) {
+        if($query_delete_run) {
             $_SESSION['status'] = "Your Data is DELETED";
             header('Location: register.php');
         } else {
@@ -92,10 +91,10 @@ if(isset($_POST['registerbtn']))
         $email_login = $_POST['email']; 
         $password_login = $_POST['password']; 
 
-        $query = "SELECT * FROM register WHERE email='$email_login' AND password='$password_login'LIMIT 1";
-        $query_run = mysqli_query($connection, $query);
+        $query_select = "SELECT * FROM register WHERE email='$email_login' AND password='$password_login'LIMIT 1";
+        $query_select_run = $connection->query($query_select);
 
-        if(mysqli_fetch_array($query_run)) {
+        if($query_select_run->fetch(PDO::FETCH_ASSOC)) {
             $_SESSION['username'] = $email_login;
             header('Location: index.php');
         } else {

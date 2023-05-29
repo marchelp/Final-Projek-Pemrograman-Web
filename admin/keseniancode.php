@@ -16,10 +16,10 @@ include('security.php');
                 $_SESSION['status']="Image already exist. '.$store.'";
                 header('Location: kesenian.php');
             } else {
-                $query = "INSERT INTO kesenian (`title`, `description`, `images`) VALUES ('$title', '$description', '$images')";
-                $query_run = mysqli_query($connection, $query);
+                $query_insert = "INSERT INTO kesenian (`title`, `description`, `images`) VALUES ('$title', '$description', '$images')";
+                $query_insert_run = $connection->query($query_insert);
                 
-                if($query_run) {
+                if($query_insert_run) {
                     move_uploaded_file($_FILES['kesenian_images']['tmp_name'],'upload/'.$_FILES['kesenian_images']['name']);
                     $_SESSION['status'] = "Kesenian Ditambahkan";
                     header('Location: kesenian.php');
@@ -44,9 +44,9 @@ include('security.php');
 
         
 
-            $seni_query = "SELECT * FROM kesenian WHERE id='$edit_id'";
-            $seni_query_run = mysqli_query($connection, $seni_query);
-            foreach($seni_query_run as $sn_row) {
+            $seni_query_select = "SELECT * FROM kesenian WHERE id='$edit_id'";
+            $seni_query_select_run = $connection->query($seni_query_select);
+            foreach($seni_query_select_run as $sn_row) {
                 if($edit_kesenian_images == NULL) {
                     // Update with  existing image
                     $images_data = $sn_row['images'];
@@ -59,10 +59,10 @@ include('security.php');
                 }
             }
 
-            $query = "UPDATE kesenian SET title='$edit_title', description='$edit_description', images='$images_data' WHERE id='$edit_id'";
-            $query_run = mysqli_query($connection, $query);
+            $query_update = "UPDATE kesenian SET title='$edit_title', description='$edit_description', images='$images_data' WHERE id='$edit_id'";
+            $query_update_run = $connection->query($query_update);
 
-            if($query_run) {
+            if($query_update_run) {
                 if($edit_kesenian_images == NULL) {
                     $_SESSION['status'] = "Kesenian Diperbarui";
                     header('Location: kesenian.php');
@@ -87,13 +87,25 @@ include('security.php');
     }
 
 
-    if(isset($_POST['delete_btn'])) {
+    if (isset($_POST['delete_btn'])) {
         $id = $_POST['delete_id'];
-
-        $query = "DELETE FROM kesenian WHERE id='$id'";
-        $query_run = mysqli_query($connection, $query);
-
-        if($query_run) {
+    
+        // Select data kesenian sebelum dihapus
+        $query_select = "SELECT * FROM kesenian WHERE id='$id'";
+        $query_select_run = $connection->query($query_select);
+        $row = $query_select_run->fetch(PDO::FETCH_ASSOC);
+        $image_path = 'upload/' . $row['images'];
+    
+        // Hapus data kesenian dari database
+        $query_delete = "DELETE FROM kesenian WHERE id='$id'";
+        $query_delete_run = $connection->query($query_delete);
+    
+        if ($query_delete_run) {
+            // Hapus gambar dari folder 'upload' jika ada
+            if (file_exists($image_path)) {
+                unlink($image_path);
+            }
+    
             $_SESSION['status'] = "Data Kesenian Telah Dihapus";
             header("Location: kesenian.php");
         } else {
@@ -101,5 +113,4 @@ include('security.php');
             header("Location: kesenian.php");
         }
     }
-
 ?>

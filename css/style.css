@@ -37,7 +37,9 @@ nav {
 header {
     position: relative;
     background-color: black;
+    height: 100vh;
     width: 100%;
+    min-height: 25vh;
     overflow: hidden;
     padding: 0;
 }

@@ -74,10 +74,9 @@ include('includes/navbar.php');
                 <div class="table-responsive">
 
                     <?php
-                    $connection = mysqli_connect("localhost", "root", "", "adminpanel");
 
                     $query = "SELECT * FROM register";
-                    $query_run = mysqli_query($connection, $query);
+                    $query_run = $connection->query($query);
 
                     ?>
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -93,8 +92,8 @@ include('includes/navbar.php');
                         </thead>
                         <tbody>
                             <?php
-                            if (mysqli_num_rows($query_run) > 0) {
-                                while ($row = mysqli_fetch_assoc($query_run)) {
+                            if ($query_run->columnCount() > 0) {
+                                while ($row = $query_run->fetch(PDO::FETCH_ASSOC)) {
                             ?>
                                     <tr>
                                         <td><?php echo $row['id']; ?></td>

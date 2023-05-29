@@ -5,13 +5,15 @@ $db_username = "root";
 $db_password = "";
 $db_name = "adminpanel";
 
-$connection = mysqli_connect($server_name,$db_username,$db_password,$db_name);
-$dbconfig = mysqli_select_db($connection, $db_name);
-
-if($dbconfig)
-{
-
-} else {
+try {
+    //membuat object PDO untuk koneksi ke database
+    $connection = new PDO("mysql:host=$server_name;dbname=$db_name", $db_username, $db_password);
+    // setting ERROR mode PDO: ada tiga mode error mode silent, warning, exception
+    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // echo "Koneksi berhasil";
+ }
+ catch(PDOException $err)
+ {
     echo '
         <div class="container">
             <div class="row">
@@ -28,5 +30,4 @@ if($dbconfig)
             </div>
         </div>
     ';
-}
-?>
+ }
