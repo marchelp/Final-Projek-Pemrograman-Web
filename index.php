@@ -36,7 +36,7 @@ include('includes/navbar.php');
         <div class="mt-4 container">
             <div class="row">
                 <div class="col">
-                    <img src="img/contenthome2.png" alt="">
+                    <img src="img/contenthome2.jpg" alt="">
                 </div>
                 <div class="col">
                     <h1 class="mx-auto mt-1 mb-1">Motto</h1>
