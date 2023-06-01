@@ -5,13 +5,10 @@ include('includes/navbarContact.php');
 <main>
     <!-- header -->
     <header>
-        <!-- This div is  intentionally blank. It creates the transparent black overlay over the video which you can modify in the CSS -->
         <div class="overlay"></div>
-        <!-- The HTML5 video element that will create the background video on the header -->
         <div class="bg-image" style="background-image: url('img/bgContacUs.jpg');
             height: 100vh;
             background-size:cover">
-            <!-- The header content -->
             <div class="container h-100">
                 <div class="d-flex h-100 text-center align-items-center">
                     <div class="w-100 text-white">

@@ -147,11 +147,11 @@ include('includes/navbar.php');
                 while($row = $query_run->fetch(PDO::FETCH_ASSOC))  {
             ?>
                 <tr>
-                    <td><?php echo $row['id'] ?></td>
-                    <td><?php echo $row['kategori'] ?></td>
-                    <td><?php echo $row['title'] ?></td>
-                    <td><?php echo $row['description'] ?></td>
-                    <td><?php echo '<img src="upload/'.$row['images'].'" width="100px" height="100px" alt="kebudayaan">'?></td>
+                    <td class="p-2"><?php echo $row['id'] ?></td>
+                    <td class="p-2"><?php echo $row['kategori'] ?></td>
+                    <td class="p-2"><?php echo $row['title'] ?></td>
+                    <td class="p-2"><?php echo $row['description'] ?></td>
+                    <td class="p-2"><?php echo '<img src="upload/'.$row['images'].'" width="100px" height="100px" alt="kebudayaan">'?></td>
                 </tr>
             <?php
                 }
