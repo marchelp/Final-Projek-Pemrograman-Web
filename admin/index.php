@@ -117,54 +117,58 @@ include('includes/navbar.php');
             </div>
 
             <div class="card mb-4">
-    <div class="card-header">
-        <i class="fas fa-table me-1"></i>
-        Data Kebudayaan
-    </div>
-    <div class="card-body">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Data Kebudayaan
+                </div>
+                <div class="card-body">
 
-    <?php 
-        $query = "SELECT id, 'kesenian' AS kategori, title, description, images FROM kesenian 
-                  UNION 
-                  SELECT id, 'kerajinan' AS kategori, title, description, images FROM kerajinan";
-        $query_run = $connection->query($query);
+                    <div class="table-responsive">
 
-        if($query_run->rowCount() > 0) {
-    ?>
 
-        <table id="datatablesSimple">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Kategori</th>
-                    <th>Title</th>
-                    <th>Deskripsi</th>
-                    <th>Image</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php 
-                while($row = $query_run->fetch(PDO::FETCH_ASSOC))  {
-            ?>
-                <tr>
-                    <td class="p-2"><?php echo $row['id'] ?></td>
-                    <td class="p-2"><?php echo $row['kategori'] ?></td>
-                    <td class="p-2"><?php echo $row['title'] ?></td>
-                    <td class="p-2"><?php echo $row['description'] ?></td>
-                    <td class="p-2"><?php echo '<img src="upload/'.$row['images'].'" width="100px" height="100px" alt="kebudayaan">'?></td>
-                </tr>
-            <?php
-                }
-            ?>
-            </tbody>
-        </table>
-    <?php
-        } else {
-            echo "No Record Found";
-        }
-    ?>
-    </div>
-</div>
+                        <?php
+                        $query = "SELECT id, 'kesenian' AS kategori, title, description, images FROM kesenian 
+                                UNION 
+                                SELECT id, 'kerajinan' AS kategori, title, description, images FROM kerajinan";
+                        $query_run = $connection->query($query);
+
+                        if ($query_run->rowCount() > 0) {
+                        ?>
+
+                            <table id="datatablesSimple" class="table table-bordered" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Kategori</th>
+                                        <th>Title</th>
+                                        <th>Deskripsi</th>
+                                        <th>Image</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    while ($row = $query_run->fetch(PDO::FETCH_ASSOC)) {
+                                    ?>
+                                        <tr>
+                                            <td><?php echo $row['id'] ?></td>
+                                            <td><?php echo $row['kategori'] ?></td>
+                                            <td><?php echo $row['title'] ?></td>
+                                            <td><?php echo $row['description'] ?></td>
+                                            <td><?php echo '<img src="upload/' . $row['images'] . '" width="100px" height="100px" alt="kebudayaan">' ?></td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        <?php
+                        } else {
+                            echo "No Record Found";
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </main>

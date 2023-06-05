@@ -30,7 +30,7 @@ include('includes/navbar.php');
     </header>
     <!-- header end-->
     <!-- Content -->
-    <div class="mx-auto mt-5 mb-5 p-4 shadow" style="width: 80vw; background-color: #F5F5F5;">
+    <div class="mx-auto mt-5 mb-5 p-4 shadow" id="1" style="width: 80vw; background-color: #F5F5F5;">
 
         <section class="mb-5">
             <h4 class="mb-4" style="color:#62311F;">Kota Yogyakarta</h4>
